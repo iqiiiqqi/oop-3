@@ -44,4 +44,15 @@ public class CharityDatabase {
             }
         }
     }
+
+    public void insertDonation(Donation donation) throws SQLException {
+        String query = "INSERT INTO donations (id, amount, donor_id) VALUES (?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, donation.getId());
+            stmt.setDouble(2, donation.getAmount());
+            stmt.setInt(3, donation.getDonorId());
+            stmt.executeUpdate();
+        }
+    }
 }
